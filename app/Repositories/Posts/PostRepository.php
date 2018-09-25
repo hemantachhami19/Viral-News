@@ -6,10 +6,10 @@
  * Time: 11:24 PM
  */
 
-namespace App\Models\Posts\Interfaces;
+namespace App\Repositories\Posts;
 
 
-interface PostRepositoryInterface
+class PostRepository
 {
 
 }

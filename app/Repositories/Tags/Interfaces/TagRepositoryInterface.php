@@ -6,7 +6,7 @@
  * Time: 11:24 PM
  */
 
-namespace App\Models\Tags\Interfaces;
+namespace App\Repositories\Tags\Interfaces;
 
 
 class TagRepositoryInterface

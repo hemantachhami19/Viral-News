@@ -6,10 +6,10 @@
  * Time: 11:23 PM
  */
 
-namespace App\Models\Comments\Interfaces;
+namespace App\Repositories\Comments;
 
 
-interface CommentRepositoryInterface
+class CommentRepository
 {
 
 }
