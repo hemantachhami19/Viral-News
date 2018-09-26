@@ -44,7 +44,7 @@
         <li>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-desktop"></i>
-                <span class="menu-text"> UI Elements </span>
+                <span class="menu-text"> Categories </span>
 
                 <b class="arrow icon-angle-down"></b>
             </a>
@@ -53,14 +53,14 @@
                 <li>
                     <a href="elements.html">
                         <i class="icon-double-angle-right"></i>
-                        Elements
+                        Category list
                     </a>
                 </li>
 
                 <li>
                     <a href="buttons.html">
                         <i class="icon-double-angle-right"></i>
-                        Buttons &amp; Icons
+                        Add new Category
                     </a>
                 </li>
 
