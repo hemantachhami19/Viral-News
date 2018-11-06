@@ -19,6 +19,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware'=> 'auth'], function () {
-    Route::get('admin/dashboard', ['uses'=>'Admin\DashboardController@index']);
+Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'namespace' => 'Admin\\', 'middleware' => ['auth']], function (){
+
+
+    //dashboard routes
+    Route::get('dashboard',                 ['as' => 'dashboard',                    'uses' => 'DashboardController@index']);
+    Route::get('',                          ['as' => 'dashboard',                    'uses' => 'DashboardController@index']);
+
+
+    //category routes
+    Route::get('category',                  ['as' => 'category',                    'uses' => 'CategoryController@index']);
+    Route::get('category/create',           ['as' => 'category.create',             'uses' => 'CategoryController@create']);
+    Route::post('category/store',           ['as' => 'category.store',              'uses' => 'CategoryController@store']);
+    Route::get('category/edit/{id}',        ['as' => 'category.edit',               'uses' => 'CategoryController@edit']);
+    Route::post('category/update/{id}',     ['as' => 'category.update',             'uses' => 'CategoryController@update']);
+    Route::get('category/delete/{id}',      ['as' => 'category.delete',             'uses' => 'CategoryController@delete']);
+    Route::get('category/show/{id}',        ['as' => 'category.show',               'uses' => 'CategoryController@show']);
 });

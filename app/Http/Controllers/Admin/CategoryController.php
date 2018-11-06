@@ -2,134 +2,140 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\Categories\CategoryRepository;
-use App\Repositories\Categories\Interfaces\CategoryRepoInterface;
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
-class CategoryController extends Controller
+class CategoryController extends BaseController
 {
-    private $categoryRepo;
+    protected $base_route = 'admin.category';
+    protected $view_path = 'admin.category';
+    protected $panel = 'Category';
+    protected $model;
 
-    public function __construct(CategoryRepoInterface $categoryRepository)
+
+    public function __construct()
     {
-        $this->categoryRepo = $categoryRepository;
+        $this->model = new Category();
+        $this->folder_path_category = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . "category" . DIRECTORY_SEPARATOR;
+        $this->main_image_dimensions = config('broadway.image_dimensions.product.main_image');
+        $this->gallery_image_dimensions = config('broadway.image_dimensions.product.gallery_image');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //loads 'admin/category/index' from view folder
     public function index()
     {
-        $list = $this->categoryRepo->listCategories('created_at', 'desc', 1)->whereIn('parent_id', [1]);
-
-        return view('admin.categories.list', [
-            'categories' => $this->categoryRepo->paginateArrayResults($list->all())
-        ]);
+        $data = [];
+        $data['rows'] = $this->model::all();
+        return view(parent::loadDefaultDataToView($this->view_path .'.index'), compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //loads 'admin/category/create' from view folder
     public function create()
     {
-        return view('admin.categories.create', [
-            'categories' => $this->categoryRepo->listCategories('name', 'asc')
-        ]);
+        $data['categories'] = Category::all();
+        return view(parent::loadDefaultDataToView($this->view_path . '.create'),compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  CreateCategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CreateCategoryRequest $request)
+
+    public function store( $request)
     {
-        $this->categoryRepo->createCategory($request->except('_token', '_method'));
-
-        $request->session()->flash('message', 'Category created');
-        return redirect()->route('admin.categories.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $category = $this->categoryRepo->findCategoryById($id);
-
-        $cat = new CategoryRepository($category);
-
-        return view('admin.categories.show', [
-            'category' => $category,
-            'categories' => $category->children,
-            'products' => $cat->findProducts()
+        $request->request->add([
+            'slug' => str_slug($request->get('title'))
         ]);
+        $this->model->create($request->all());
+
+        $request->session()->flash('success_message', $this->panel . ' successfully added.');
+        return redirect()->route($this->base_route);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        return view('admin.categories.edit', [
-            'categories' => $this->categoryRepo->listCategories('name', 'asc', $id),
-            'category' => $this->categoryRepo->findCategoryById($id)
+        $data = [];
+        $data['row'] = $this->model->findOrFail($id);
+        return view(parent::loadDefaultDataToView($this->view_path . '.edit'), compact('data'));
+    }
+
+
+    public function update(EditFormValidations $request, $id)
+    {
+        $row = $this->model->find($id);
+        $request->request->add([
+            'slug' => str_slug($request->get('title'))
         ]);
+        $row->update($request->all());
+        $request->session()->flash('success_message', $this->panel . ' successfully updated.');
+        return redirect()->route($this->base_route);
     }
+//
+//
+//    /*Cascade delete
+//    Deleting category needs all products ,tags and all associated images
+//    */
+//    public function delete(Request $request, $id)
+//    {
+//        $row = $this->model->find($id);
+//
+//        //Getting all the products belonging to particular category
+//        $products = Product::where('category_id', $row->id)->get();
+//
+//        //Unlinking th main image  and detaching the necessary tags
+//        foreach ($products as $product) {
+//            $product->tags()->detach();
+//            if ($product->main_image) {
+//                if (file_exists($this->folder_path_category . $product->main_image))
+//                    unlink($this->folder_path_category . $product->main_image);
+//
+//                foreach ($this->main_image_dimensions as $dimension) {
+//
+//                    $d = $dimension['width'] . '_' . $dimension['height'] . '_';
+//                    if (file_exists($this->folder_path_category . $d . $product->main_image))
+//                        unlink($this->folder_path_category . $d . $product->main_image);
+//                }
+//            }
+//
+//            //unlinking the gallery image and deleting the gallery
+//            $product_galleries = ProductGallery::where('product_id', $product->id)->get();
+//            if ($product_galleries->count() > 0) {
+//
+//                foreach ($product_galleries as $gallery) {
+//
+//                    if ($gallery->image) {
+//
+//                        if (file_exists($this->folder_path_category . $gallery->image))
+//                            //dd($this->folder_path . $gallery->image);
+//                            unlink($this->folder_path_category . $gallery->image);
+//
+//                        foreach ($this->gallery_image_dimensions as $dimension) {
+//
+//                            $d = $dimension['width'] . '_' . $dimension['height'] . '_';
+//                            if (file_exists($this->folder_path_category . $d . $gallery->image))
+//                                unlink($this->folder_path_category . $d . $gallery->image);
+//
+//                        }
+//
+//                    }
+//
+//                    $gallery->delete();
+//                }
+//
+//
+//            }
+//
+//
+//        }
+//
+//        $row->delete();
+//        return redirect()->route($this->base_route);
+//
+//    }
+//
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  UpdateCategoryRequest $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCategoryRequest $request, $id)
+    public function show($id)
     {
-        $category = $this->categoryRepo->findCategoryById($id);
-
-        $update = new CategoryRepository($category);
-        $update->updateCategory($request->except('_token', '_method'));
-
-        $request->session()->flash('message', 'Update successful');
-        return redirect()->route('admin.categories.edit', $id);
+        $data = [];
+        $row = $this->model->find($id);
+        return view(parent::loadDefaultDataToView($this->view_path.'.show'), compact('row'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(int $id)
-    {
-        $category = $this->categoryRepo->findCategoryById($id);
-       // $category->products()->sync([]);
-        $category->delete();
-        request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('admin.categories.index');
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function removeImage(Request $request)
-    {
-        $this->categoryRepo->deleteFile($request->only('category'));
-        request()->session()->flash('message', 'Image delete successful');
-        return redirect()->route('admin.categories.edit', $request->input('category'));
-    }
 }
