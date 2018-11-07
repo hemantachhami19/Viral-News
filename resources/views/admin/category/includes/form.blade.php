@@ -23,15 +23,6 @@
     </div>
 </div>
 
-
-<div class="row">
-    <div class="form-group">
-        <label for="category" class="col-sm-3 control-label no-padding-right">Category</label>
-        <div class="col-sm-9">
-            {{ Form::select('category_id', $data['categories'], null, [ 'class' => 'col-xs-10 col-sm-5','placeholder'=>'--Select Category--']) }}
-        </div>
-    </div>
-</div>
 <div class="form-group">
     <label class="control-label col-sm-3">Status</label>
     <div class="col-sm-6">
