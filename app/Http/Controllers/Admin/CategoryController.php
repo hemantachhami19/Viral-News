@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Category\AddFormValidation;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -34,13 +35,12 @@ class CategoryController extends BaseController
     }
 
 
-    public function store(Request $request)
+    public function store(AddFormValidation $request)
     {
         $request->request->add([
             'slug' => str_slug($request->get('title'))
         ]);
         $this->model->create($request->all());
-
         $request->session()->flash('success_message', $this->panel . ' successfully added.');
         return redirect()->route($this->base_route);
     }
