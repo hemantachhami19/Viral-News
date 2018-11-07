@@ -35,7 +35,11 @@ class AddFormValidation extends FormRequest
     private function customValidation()
     {
         Validator::extend('parent_unique', function($attribute,$value,$parameters,$validator){
-            if (Category::where('parent_id', 0)->where('slug', str_slug($value))->count() > 0)
+            $categoryCount =Category::where('parent_id', 0)
+                ->where('slug', str_slug($value))
+                ->where('id', '!=', $this->request->get('id'))
+                ->count();
+            if ($categoryCount > 0)
                 return false;
             return true;
 
