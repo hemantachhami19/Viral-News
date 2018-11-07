@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Category\AddFormValidation;
 use App\Models\Category;
+use CategoryLevel;
 use Illuminate\Http\Request;
 
 class CategoryController extends BaseController
@@ -30,7 +31,7 @@ class CategoryController extends BaseController
     //loads 'admin/category/create' from view folder
     public function create()
     {
-        $data['categories'] = Category::all();
+        $data['rows'] = Category::all();
         return view(parent::loadDefaultDataToView($this->view_path . '.create'),compact('data'));
     }
 
@@ -40,6 +41,7 @@ class CategoryController extends BaseController
         $request->request->add([
             'slug' => str_slug($request->get('title'))
         ]);
+        $request->request->add(['parent_id' => CategoryLevel::first_level]);
         $this->model->create($request->all());
         $request->session()->flash('success_message', $this->panel . ' successfully added.');
         return redirect()->route($this->base_route);
@@ -49,6 +51,7 @@ class CategoryController extends BaseController
     {
         $data = [];
         $data['row'] = $this->model->findOrFail($id);
+        $data['rows'] = Category::all();
         $this->model->update($request->all());
         return view(parent::loadDefaultDataToView($this->view_path . '.edit'), compact('data'));
     }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Category;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class AddFormValidation extends FormRequest
 {
@@ -23,9 +25,20 @@ class AddFormValidation extends FormRequest
      */
     public function rules()
     {
+        $this->customValidation();
         return [
-            'title'=>'required|unique:categories,title',
+            'title'=>'required|parent_unique',
             'status'=>'required|boolean',
         ];
+    }
+
+    private function customValidation()
+    {
+        Validator::extend('parent_unique', function($attribute,$value,$parameters,$validator){
+            if (Category::where('parent_id', 0)->where('slug', str_slug($value))->count() > 0)
+                return false;
+            return true;
+
+        });
     }
 }

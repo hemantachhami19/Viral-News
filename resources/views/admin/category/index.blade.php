@@ -43,11 +43,12 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Title</th>
+                                <th>Status</th>
+                                <th>Parent Category</th>
                                 <th>
                                     <i class="icon-time bigger-110 hidden-480"></i>
                                     Created At
                                 </th>
-                                <th>Status</th>
                                 <th>View|Edit|Delete</th>
                             </tr>
                             </thead>
@@ -59,8 +60,9 @@
                                     <tr>
                                         <td>{{ $row->id }}</td>
                                         <td>{{$row->title }}</td>
-                                        <td>{{ $row->created_at }}</td>
                                         <td>{{ $row->status? 'Active':'Inactive' }}</td>
+                                        <td>{{  isset($row->parent->title)? $row->parent->title :null }}</td>
+                                        <td>{{ $row->created_at }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{{ route('admin.category.show', $row->id) }}" class="btn btn-xs btn-success">
