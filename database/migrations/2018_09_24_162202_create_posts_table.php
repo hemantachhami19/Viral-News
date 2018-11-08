@@ -21,8 +21,6 @@ class CreatePostsTable extends Migration
             $table->text('summary')->nullable();
             $table->text('details')->nullable();
             $table->boolean('status');
-            $table->boolean('is_draft')->default(1);
-            $table->boolean('is_posted')->default(0);
             $table->timestamp('submitted_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('published_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedInteger('category_id')->nullable();
@@ -30,6 +28,10 @@ class CreatePostsTable extends Migration
             $table->text('main_image')->nullable();
             $table->timestamps();
         });
+        Schema::table('posts', function($table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+        });
+
     }
 
     /**

@@ -50,24 +50,24 @@
             </ul>
         </li>
 
-        <li {!! request()->is('admin/product*')?'class="active open"':'' !!}>
+        <li {!! request()->is('admin/post*')?'class="active open"':'' !!}>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-gift"></i>
-                <span class="menu-text"> Product </span>
+                <span class="menu-text"> Post </span>
 
 
                 <b class="arrow icon-angle-down"></b>
             </a>
 
             <ul class="submenu">
-                <li {!! request()->is('admin/product')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.product') }}">
+                <li {!! request()->is('admin/post')?'class="active"':'' !!}>
+                    <a href="{{ route('admin.post') }}">
                         <i class="icon-eye-open"></i>
                         List
                     </a>
                 </li>
-                <li {!! request()->is('admin/product/create')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.product.create') }}">
+                <li {!! request()->is('admin/post/create')?'class="active"':'' !!}>
+                    <a href="{{ route('admin.post.create') }}">
                         <i class="icon-plus"></i>
                         Add
                     </a>
@@ -76,119 +76,119 @@
         </li>
 
 
-        <li {!! request()->is('admin/tag*')?'class="active open"':'' !!}>
-            <a href="#" class="dropdown-toggle">
-                <i class="icon-tag"></i>
-                <span class="menu-text"> Tags </span>
+        {{--<li {!! request()->is('admin/tag*')?'class="active open"':'' !!}>--}}
+            {{--<a href="#" class="dropdown-toggle">--}}
+                {{--<i class="icon-tag"></i>--}}
+                {{--<span class="menu-text"> Tags </span>--}}
 
-                <b class="arrow icon-angle-down"></b>
-            </a>
+                {{--<b class="arrow icon-angle-down"></b>--}}
+            {{--</a>--}}
 
-            <ul class="submenu">
-                <li {!! request()->is('admin/tag')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.tag') }}">
-                        <i class="icon-eye-open"></i>
-                        List
-                    </a>
-                </li>
-                <li {!! request()->is('admin/tag/create')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.tag.create') }}">
-                        <i class="icon-plus"></i>
-                        Add
-                    </a>
-                </li>
-            </ul>
-        </li>
+            {{--<ul class="submenu">--}}
+                {{--<li {!! request()->is('admin/tag')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.tag') }}">--}}
+                        {{--<i class="icon-eye-open"></i>--}}
+                        {{--List--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li {!! request()->is('admin/tag/create')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.tag.create') }}">--}}
+                        {{--<i class="icon-plus"></i>--}}
+                        {{--Add--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--</ul>--}}
+        {{--</li>--}}
 
-        <li {!! request()->is('admin/gallery*')?'class="active open"':'' !!}>
-            <a href="#" class="dropdown-toggle">
-                <i class="icon-picture"></i>
-                <span class="menu-text"> Gallery</span>
+        {{--<li {!! request()->is('admin/gallery*')?'class="active open"':'' !!}>--}}
+            {{--<a href="#" class="dropdown-toggle">--}}
+                {{--<i class="icon-picture"></i>--}}
+                {{--<span class="menu-text"> Gallery</span>--}}
 
-                <b class="arrow icon-angle-down"></b>
-            </a>
+                {{--<b class="arrow icon-angle-down"></b>--}}
+            {{--</a>--}}
 
-            <ul class="submenu">
-                <li {!! request()->is('admin/gallery')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.gallery') }}">
-                        <i class="icon-eye-open"></i>
-                        Images
-                    </a>
-                </li>
-                <li {!! request()->is('admin/gallery/create')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.gallery.create') }}">
-                        <i class="icon-plus"></i>
-                        Add Image
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li {!! request()->is('admin/service*')?'class="active open"':'' !!}>
-            <a href="#" class="dropdown-toggle">
-                <i class="icon-briefcase"></i>
-                <span class="menu-text"> Services</span>
+            {{--<ul class="submenu">--}}
+                {{--<li {!! request()->is('admin/gallery')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.gallery') }}">--}}
+                        {{--<i class="icon-eye-open"></i>--}}
+                        {{--Images--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li {!! request()->is('admin/gallery/create')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.gallery.create') }}">--}}
+                        {{--<i class="icon-plus"></i>--}}
+                        {{--Add Image--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--</ul>--}}
+        {{--</li>--}}
+        {{--<li {!! request()->is('admin/service*')?'class="active open"':'' !!}>--}}
+            {{--<a href="#" class="dropdown-toggle">--}}
+                {{--<i class="icon-briefcase"></i>--}}
+                {{--<span class="menu-text"> Services</span>--}}
 
-                <b class="arrow icon-angle-down"></b>
-            </a>
+                {{--<b class="arrow icon-angle-down"></b>--}}
+            {{--</a>--}}
 
-            <ul class="submenu">
-                <li {!! request()->is('admin/service')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.service') }}">
-                        <i class="icon-eye-open"></i>
-                        Services
-                    </a>
-                </li>
-                <li {!! request()->is('admin/service/create')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.service.create') }}">
-                        <i class="icon-plus"></i>
-                        Add Service
-                    </a>
-                </li>
-            </ul>
-        </li>
+            {{--<ul class="submenu">--}}
+                {{--<li {!! request()->is('admin/service')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.service') }}">--}}
+                        {{--<i class="icon-eye-open"></i>--}}
+                        {{--Services--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li {!! request()->is('admin/service/create')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.service.create') }}">--}}
+                        {{--<i class="icon-plus"></i>--}}
+                        {{--Add Service--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--</ul>--}}
+        {{--</li>--}}
 
-        <li {!! request()->is('admin/branch*')?'class="active open"':'' !!}>
-            <a href="#" class="dropdown-toggle">
-                <i class="icon-sitemap"></i>
-                <span class="menu-text">Branches</span>
+        {{--<li {!! request()->is('admin/branch*')?'class="active open"':'' !!}>--}}
+            {{--<a href="#" class="dropdown-toggle">--}}
+                {{--<i class="icon-sitemap"></i>--}}
+                {{--<span class="menu-text">Branches</span>--}}
 
-                <b class="arrow icon-angle-down"></b>
-            </a>
+                {{--<b class="arrow icon-angle-down"></b>--}}
+            {{--</a>--}}
 
-            <ul class="submenu">
-                <li {!! request()->is('admin/branch')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.branch') }}">
-                        <i class="icon-eye-open"></i>
-                        Branch list
-                    </a>
-                </li>
-                <li {!! request()->is('admin/branch/create')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.branch.create') }}">
-                        <i class="icon-plus"></i>
-                        Add Branch
-                    </a>
-                </li>
-            </ul>
-        </li>
+            {{--<ul class="submenu">--}}
+                {{--<li {!! request()->is('admin/branch')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.branch') }}">--}}
+                        {{--<i class="icon-eye-open"></i>--}}
+                        {{--Branch list--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li {!! request()->is('admin/branch/create')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.branch.create') }}">--}}
+                        {{--<i class="icon-plus"></i>--}}
+                        {{--Add Branch--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--</ul>--}}
+        {{--</li>--}}
 
-        <li {!! request()->is('admin/contact*')?'class="active open"':'' !!}>
-            <a href="#" class="dropdown-toggle">
-                <i class="icon-user"></i>
-                <span class="menu-text">Messages</span>
+        {{--<li {!! request()->is('admin/contact*')?'class="active open"':'' !!}>--}}
+            {{--<a href="#" class="dropdown-toggle">--}}
+                {{--<i class="icon-user"></i>--}}
+                {{--<span class="menu-text">Messages</span>--}}
 
-                <b class="arrow icon-angle-down"></b>
-            </a>
+                {{--<b class="arrow icon-angle-down"></b>--}}
+            {{--</a>--}}
 
-            <ul class="submenu">
-                <li {!! request()->is('admin/message')?'class="active"':'' !!}>
-                    <a href="{{ route('admin.message') }}">
-                        <i class="icon-eye-open"></i>
-                         Messages Recieved
-                    </a>
-                </li>
+            {{--<ul class="submenu">--}}
+                {{--<li {!! request()->is('admin/message')?'class="active"':'' !!}>--}}
+                    {{--<a href="{{ route('admin.message') }}">--}}
+                        {{--<i class="icon-eye-open"></i>--}}
+                         {{--Messages Recieved--}}
+                    {{--</a>--}}
+                {{--</li>--}}
 
-            </ul>
-        </li>
+            {{--</ul>--}}
+        {{--</li>--}}
 
 
     </ul><!-- /.nav-list -->

@@ -31,7 +31,6 @@ class BaseController extends Controller
         if (!file_exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
 
-
         }
     }
 }

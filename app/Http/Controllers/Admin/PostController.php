@@ -4,21 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Post\AddFormValidation;
 use App\Http\Requests\Post\EditFormValidation;
+use App\Models\Category;
 use App\Models\Post;
+use Carbon\Carbon;
 use CategoryLevel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends BaseController
 {
     protected $base_route = 'admin.post';
     protected $view_path = 'admin.post';
     protected $panel = 'Post';
+    protected $folder = 'post';
     protected $model;
+    protected $folder_path;
+
 
 
     public function __construct()
     {
         $this->model = new Post();
+        $this->folder_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$this->folder.DIRECTORY_SEPARATOR;
     }
 
     //loads 'admin/post/index' from view folder
@@ -32,18 +39,15 @@ class PostController extends BaseController
     //loads 'admin/post/create' from view folder
     public function create()
     {
-        $data['rows'] = Post::all();
+        $data['rows'] = Category::all();
         return view(parent::loadDefaultDataToView($this->view_path . '.create'),compact('data'));
     }
 
 
     public function store(AddFormValidation $request)
     {
-        $request->request->add([
-            'slug' => str_slug($request->get('title'))
-        ]);
-        $request->request->add(['parent_id' => CategoryLevel::first_level]);
-        $this->model->create($request->all());
+        $post = $this->createPost($request);
+        dd($post);
         $request->session()->flash('success_message', $this->panel . ' successfully added.');
         return redirect()->route($this->base_route);
     }
@@ -83,5 +87,31 @@ class PostController extends BaseController
         $request->session()->flash('success_message',$this->panel. "is successfully deleted");
         return redirect()->route('admin.post');
     }
+
+    private function createPost($request)
+    {
+        $file_name = null;
+        if ($request->hasFile('main_image')) {
+            parent::createFolderIfNotExist($this->folder_path);
+            $file = $request->file('image');
+            $file_name = rand(0000, 9998) . '_' . $file->getClientOriginalName();
+            $file->move($this->folder_path, $file_name);
+        }
+       dd($request);
+        $post = new Post();
+        $post->title = $request->get('title');
+        $post->slug =  str_slug($request->get('title'));
+        $post->summary =  $request->get('summary');
+        $post->category_id =  $request->get('category_id');
+        $post->details =  $request->get('details');
+        $post->status =  $request->get('status');
+        $post->submitted_date = Carbon::now();
+        $post->published_date = $request->get('published_date');
+        $post->main_image  = $request->get('main_image');
+        $post->user_id = Auth::user()->id;
+        $post->save();
+        return $post;
+    }
+
 
 }

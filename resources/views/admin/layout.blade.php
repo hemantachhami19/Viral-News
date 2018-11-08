@@ -60,7 +60,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="icon-leaf"></i>
-                    Ace Admin
+                    Mahesh Blog Admin Panel
                 </small>
             </a><!-- /.brand -->
         </div><!-- /.navbar-header -->
