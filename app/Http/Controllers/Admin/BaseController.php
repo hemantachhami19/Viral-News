@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
 class BaseController extends Controller
@@ -30,7 +31,6 @@ class BaseController extends Controller
     {
         if (!file_exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
-
         }
     }
 }

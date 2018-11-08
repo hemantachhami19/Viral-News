@@ -93,11 +93,11 @@ class PostController extends BaseController
         $file_name = null;
         if ($request->hasFile('main_image')) {
             parent::createFolderIfNotExist($this->folder_path);
-            $file = $request->file('image');
+            $file = $request->file('main_image');
             $file_name = rand(0000, 9998) . '_' . $file->getClientOriginalName();
             $file->move($this->folder_path, $file_name);
         }
-       dd($request);
+
         $post = new Post();
         $post->title = $request->get('title');
         $post->slug =  str_slug($request->get('title'));
