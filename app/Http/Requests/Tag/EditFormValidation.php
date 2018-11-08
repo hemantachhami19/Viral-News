@@ -24,7 +24,8 @@ class EditFormValidation extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required | unique:tags,title'.$this->id,
+            'status'=> 'required'
         ];
     }
 }

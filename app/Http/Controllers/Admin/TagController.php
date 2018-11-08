@@ -55,7 +55,7 @@ class TagController extends BaseController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(EditFormValidation $request, $id)
     {
         $row = $this->model->find($id);
         $request->request->add([

@@ -6,6 +6,7 @@ use App\Http\Requests\Post\AddFormValidation;
 use App\Http\Requests\Post\EditFormValidation;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Carbon\Carbon;
 use CategoryLevel;
 use Illuminate\Http\Request;
@@ -39,15 +40,15 @@ class PostController extends BaseController
     //loads 'admin/post/create' from view folder
     public function create()
     {
-        $data['rows'] = Category::all();
-        return view(parent::loadDefaultDataToView($this->view_path . '.create'),compact('data'));
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view(parent::loadDefaultDataToView($this->view_path . '.create'),compact('data','categories','tags'));
     }
 
 
     public function store(AddFormValidation $request)
     {
         $post = $this->createPost($request);
-        dd($post);
         $request->session()->flash('success_message', $this->panel . ' successfully added.');
         return redirect()->route($this->base_route);
     }
@@ -56,9 +57,10 @@ class PostController extends BaseController
     {
         $data = [];
         $data['row'] = $this->model->findOrFail($id);
-        $data['rows'] = Post::all();
+        $categories = Category::all();
+        $tags = Tag::all();
         $this->model->update($request->all());
-        return view(parent::loadDefaultDataToView($this->view_path . '.edit'), compact('data'));
+        return view(parent::loadDefaultDataToView($this->view_path . '.edit'), compact('data','categories','tags'));
     }
 
 
