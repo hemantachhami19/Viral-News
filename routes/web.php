@@ -35,4 +35,12 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'namespace' => 'Admin\\', 
     Route::post('category/update/{id}',     ['as' => 'category.update',             'uses' => 'CategoryController@update']);
     Route::get('category/delete/{id}',      ['as' => 'category.delete',             'uses' => 'CategoryController@delete']);
     Route::get('category/show/{id}',        ['as' => 'category.show',               'uses' => 'CategoryController@show']);
+
+    Route::get('post',                  ['as' => 'post',                    'uses' => 'PostController@index']);
+    Route::get('post/create',           ['as' => 'post.create',             'uses' => 'PostController@create']);
+    Route::post('post/store',           ['as' => 'post.store',              'uses' => 'PostController@store']);
+    Route::get('post/edit/{id}',        ['as' => 'post.edit',               'uses' => 'PostController@edit']);
+    Route::post('post/update/{id}',     ['as' => 'post.update',             'uses' => 'PostController@update']);
+    Route::get('post/delete/{id}',      ['as' => 'post.delete',             'uses' => 'PostController@delete']);
+    Route::get('post/show/{id}',        ['as' => 'post.show',               'uses' => 'PostController@show']);
 });

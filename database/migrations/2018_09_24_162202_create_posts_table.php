@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('title');
             $table->text('slug');
             $table->text('summary')->nullable();
-            $table->text('details');
+            $table->text('details')->nullable();
             $table->boolean('status');
             $table->boolean('is_draft')->default(1);
             $table->boolean('is_posted')->default(0);
