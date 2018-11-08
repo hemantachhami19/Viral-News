@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     protected $fillable = [
-         'title' ,'slug','status','image'
+         'title' ,'slug','status'
     ];
 }

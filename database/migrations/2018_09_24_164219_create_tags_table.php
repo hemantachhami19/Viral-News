@@ -18,7 +18,6 @@ class CreateTagsTable extends Migration
             $table->text('title');
             $table->text('slug');
             $table->boolean('status');
-            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

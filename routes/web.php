@@ -43,4 +43,16 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'namespace' => 'Admin\\', 
     Route::post('post/update/{id}',     ['as' => 'post.update',             'uses' => 'PostController@update']);
     Route::get('post/delete/{id}',      ['as' => 'post.delete',             'uses' => 'PostController@delete']);
     Route::get('post/show/{id}',        ['as' => 'post.show',               'uses' => 'PostController@show']);
+
+    Route::get('tag',                  ['as' => 'tag',                    'uses' => 'TagController@index']);
+    Route::get('tag/create',           ['as' => 'tag.create',             'uses' => 'TagController@create']);
+    Route::post('tag/store',           ['as' => 'tag.store',              'uses' => 'TagController@store']);
+    Route::get('tag/edit/{id}',        ['as' => 'tag.edit',               'uses' => 'TagController@edit']);
+    Route::post('tag/update/{id}',     ['as' => 'tag.update',             'uses' => 'TagController@update']);
+    Route::get('tag/delete/{id}',      ['as' => 'tag.delete',             'uses' => 'TagController@delete']);
+    Route::get('tag/show/{id}',        ['as' => 'tag.show',               'uses' => 'TagController@show']);
+
+
+
+
 });

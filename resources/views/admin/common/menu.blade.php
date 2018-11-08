@@ -76,29 +76,29 @@
         </li>
 
 
-        {{--<li {!! request()->is('admin/tag*')?'class="active open"':'' !!}>--}}
-            {{--<a href="#" class="dropdown-toggle">--}}
-                {{--<i class="icon-tag"></i>--}}
-                {{--<span class="menu-text"> Tags </span>--}}
+        <li {!! request()->is('admin/tag')?'class="active open"':'' !!}>
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-tag"></i>
+                <span class="menu-text"> Tags </span>
 
-                {{--<b class="arrow icon-angle-down"></b>--}}
-            {{--</a>--}}
+                <b class="arrow icon-angle-down"></b>
+            </a>
 
-            {{--<ul class="submenu">--}}
-                {{--<li {!! request()->is('admin/tag')?'class="active"':'' !!}>--}}
-                    {{--<a href="{{ route('admin.tag') }}">--}}
-                        {{--<i class="icon-eye-open"></i>--}}
-                        {{--List--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-                {{--<li {!! request()->is('admin/tag/create')?'class="active"':'' !!}>--}}
-                    {{--<a href="{{ route('admin.tag.create') }}">--}}
-                        {{--<i class="icon-plus"></i>--}}
-                        {{--Add--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-            {{--</ul>--}}
-        {{--</li>--}}
+            <ul class="submenu">
+                <li {!! request()->is('admin/tag')?'class="active"':'' !!}>
+                    <a href="{{ route('admin.tag') }}">
+                        <i class="icon-eye-open"></i>
+                        List
+                    </a>
+                </li>
+                <li {!! request()->is('admin/tag/create')?'class="active"':'' !!}>
+                    <a href="{{ route('admin.tag.create') }}">
+                        <i class="icon-plus"></i>
+                        Add
+                    </a>
+                </li>
+            </ul>
+        </li>
 
         {{--<li {!! request()->is('admin/gallery*')?'class="active open"':'' !!}>--}}
             {{--<a href="#" class="dropdown-toggle">--}}
