@@ -15,14 +15,21 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('text');
-            $table->boolean('status')->default(1);
-            $table->unsignedInteger('post_id')->nullable();
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger("post_id");
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete("cascade");
+            $table->unsignedInteger("user_id")->nullable();
+            $table->string("commenter_name")->nullable()->comment("if not logged in");
+            $table->text("comment")->comment("the comment body");
+            $table->boolean("approved")->default(true);
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('comments');
