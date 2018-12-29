@@ -32,12 +32,21 @@ class AddFormValidation extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return[
+            'title.parent_unique'=>'Category with the same title already  in same category'
+        ];
+    }
+
+
     private function customValidation()
     {
+
+        //Two slugs cannot be same under the same parent category but can be different across the different parent category
         Validator::extend('parent_unique', function($attribute,$value,$parameters,$validator){
-            $categoryCount =Category::where('parent_id', 0)
+            $categoryCount =Category::where('parent_id', \CategoryLevel::first_level)
                 ->where('slug', str_slug($value))
-                ->where('id', '!=', $this->request->get('id'))
                 ->count();
             if ($categoryCount > 0)
                 return false;

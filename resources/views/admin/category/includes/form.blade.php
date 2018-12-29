@@ -2,7 +2,7 @@
 <div class="form-group">
     <label class="col-sm-3 control-label no-padding-right" for="title"> Title </label>
     <div class="col-sm-9">
-        {!! Form::text('title', null, ['required' => true,'class' => 'col-xs-10 col-sm-5', 'placeholder' => 'Title']) !!}
+        {!! Form::text('title', null, ['required' => true,'class' => 'col-xs-12 col-sm-5', 'placeholder' => 'Title']) !!}
         @if ($errors->has('title'))
             <span class="middle validation-alert">
                 <strong>{{ $errors->first('title') }}</strong>
@@ -27,9 +27,9 @@
     <label class="col-sm-3 control-label no-padding-right" for="title">Parent Category</label>
     <div class="col-sm-9">
         {!! Form::select('parent_id',$data['rows']->pluck('title','id'),null,['placeholder'=>'Select parent category', 'class' => 'col-xs-10 col-sm-5']) !!}
-        @if ($errors->has('title'))
+        @if ($errors->has('parent_id'))
             <span class="middle validation-alert">
-                <strong>{{ $errors->first('title') }}</strong>
+                <strong>{{ $errors->first('parent_id') }}</strong>
             </span>
         @endif
     </div>

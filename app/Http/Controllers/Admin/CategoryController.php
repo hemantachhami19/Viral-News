@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Category\AddFormValidation;
+use App\Http\Requests\Category\EditFormValidation;
 use App\Models\Category;
 use CategoryLevel;
 use Illuminate\Http\Request;
@@ -57,11 +58,12 @@ class CategoryController extends BaseController
     }
 
 
-    public function update(Request $request, $id)
-    {
+    public function update(EditFormValidation $request, $id)
+    {   dd($request);
         $row = $this->model->find($id);
         $request->request->add([
-            'slug' => str_slug($request->get('title'))
+            'slug' => str_slug($request->get('title')),
+            'parent_id' => $request->get('parent_id')? $request->get('parent_id'):CategoryLevel::first_level
         ]);
         $row->update($request->all());
         $request->session()->flash('success_message', $this->panel . ' successfully updated.');
