@@ -59,7 +59,7 @@ class CategoryController extends BaseController
 
 
     public function update(EditFormValidation $request, $id)
-    {   dd($request);
+    {
         $row = $this->model->find($id);
         $request->request->add([
             'slug' => str_slug($request->get('title')),

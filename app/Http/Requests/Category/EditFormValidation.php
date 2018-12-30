@@ -38,9 +38,9 @@ class EditFormValidation extends FormRequest
         });
 
         Validator::extend('same_parent', function ($attribute, $value, $parameters, $validator) {
-             if($this->get('id')){
+            if($this->get('id')){
                  if($category = Category::find($this->id)){
-                     if($category->id == $category->parent_id){
+                     if($category->id == $value){
                          return false;
                      }
                  };

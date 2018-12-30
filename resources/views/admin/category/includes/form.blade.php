@@ -4,9 +4,11 @@
     <div class="col-sm-9">
         {!! Form::text('title', null, ['required' => true,'class' => 'col-xs-12 col-sm-5', 'placeholder' => 'Title']) !!}
         @if ($errors->has('title'))
-            <span class="middle validation-alert">
-                <strong>{{ $errors->first('title') }}</strong>
-            </span>
+            <div class="col-sm-9 col-sm-offset-3" style="color: red">
+                <span class="middle validation-alert">
+                    <strong>{{ $errors->first('title') }}</strong>
+                </span>
+            </div>
         @endif
     </div>
 </div>
@@ -16,9 +18,11 @@
     <div class="col-sm-9">
         {!! Form::text('summary', null, ['required' => true,'class' => 'col-xs-10 col-sm-5', 'placeholder' => 'Enter brief summary']) !!}
         @if ($errors->has('summary'))
-            <span class="middle validation-alert">
-                <strong>{{ $errors->first('summary') }}</strong>
-            </span>
+            <div class="col-sm-9 col-sm-offset-3" style="color: red">
+                <span class="middle validation-alert">
+                    <strong>{{ $errors->first('summary') }}</strong>
+                </span>
+            </div>>
         @endif
     </div>
 </div>
@@ -27,12 +31,14 @@
     <label class="col-sm-3 control-label no-padding-right" for="title">Parent Category</label>
     <div class="col-sm-9">
         {!! Form::select('parent_id',$data['rows']->pluck('title','id'),null,['placeholder'=>'Select parent category', 'class' => 'col-xs-10 col-sm-5']) !!}
-        @if ($errors->has('parent_id'))
-            <span class="middle validation-alert">
+    </div>
+    @if ($errors->has('parent_id'))
+        <div class="col-sm-9 col-sm-offset-3" style="color: red">
+                <span class="middle validation-alert">
                 <strong>{{ $errors->first('parent_id') }}</strong>
             </span>
-        @endif
-    </div>
+        </div>
+    @endif
 </div>
 
 <div class="form-group">
